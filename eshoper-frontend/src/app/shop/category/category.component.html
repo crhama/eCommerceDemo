@@ -1,0 +1,24 @@
+<h2>Category</h2>
+          <div class="panel-group category-products" id="accordian">
+            <div *ngFor="let cat of categoryItemList" class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordian" href="#{{ cat.categoryName }}">
+                    <span *ngIf="cat.childrenCategory?.length" class="badge pull-right">
+                      <i class="fa fa-plus"></i>
+                    </span>
+                    {{ cat.categoryName }}
+                  </a>
+                </h4>
+              </div>
+              <div *ngIf="cat.childrenCategory?.length" id="{{ cat.categoryName }}" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <ul>
+                    <li *ngFor = "let c of cat.childrenCategory">
+                      <a href="#">{{ c.categoryName }}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
