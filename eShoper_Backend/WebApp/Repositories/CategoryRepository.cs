@@ -14,12 +14,11 @@ namespace WebApp.Repositories
         public CategoryRepository(EShoperDbContext Context) 
             : base(Context){}
 
-        public IEnumerable<CategoryDto> CategoryForMenuDisplay()
-        {
-            var categoyList = GetAll()
-                .Include(c => c.ChildrenCategory)
-                .Where(c => c.Level == 1)
-                .ToList();
+        public IEnumerable<CategoryDto> GetCategoriesForExistingProducts()
+        {            
+            var categoyList = GetAll().Include(c => c.ChildrenCategory)
+                                      .Where(c => c.Level == 1)
+                                      .ToList();
 
             var CategoryDtoList = Mapper.Map<IEnumerable<CategoryDto>>(categoyList);
          

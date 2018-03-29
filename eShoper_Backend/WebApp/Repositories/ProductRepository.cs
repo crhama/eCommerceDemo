@@ -1,10 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using WebApp.Data;
 using WebApp.Entities;
 using WebApp.Models.ProductViewModels;
@@ -19,13 +15,25 @@ namespace WebApp.Repositories
 
         public IEnumerable<ProductDto> GetFeatureItems()
         {
-            var usageSectionId = new SqlParameter("Pagelocation", 3);
-            var productList = GetAll()
-                .FromSql("EXECUTE dbo.Getproductsbypagesectiontype @pagelocation", usageSectionId)
-                .ToList();
+            var ProductList = from p in Context.Products
+                              join img in (
+                                from ph in Context.PhotoImages
+                                where ph.PageLocation == PageLocation.Home_Feature_Items
+                                select ph
+                              ) on p.Id equals img.ProductId into pjoin
+                              from pj in pjoin.DefaultIfEmpty()                              
+                              select new Product
+                              {
+                                  Id = p.Id,
+                                  ProductDescription = p.ProductDescription,
+                                  ProductPrice = p.ProductPrice,
+                                  PromotionType = p.PromotionType,
+                                  ImageId = pj.Id                                  
+                              };
 
-            var ProductDtoList = Mapper
-                .Map<IEnumerable<ProductDto>>(productList);
+            
+
+            var ProductDtoList = Mapper.Map<IEnumerable<ProductDto>>(ProductList);
 
             return ProductDtoList;
         }

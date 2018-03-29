@@ -17,7 +17,7 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategoryItems(): void{
-    this.productService.getCategoryItems("CategoryForMenuDisplay")
+    this.productService.getCategoryItems("CategoriesForExistingProducts")
       .subscribe(
         (data: CategoryDto[]) => this.categoryItemList = data,
         (err: any) => console.log(err)

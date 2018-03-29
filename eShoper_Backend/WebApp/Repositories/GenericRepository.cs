@@ -18,6 +18,7 @@ namespace WebApp.Repositories
             if (Context == null)
                 throw new ArgumentNullException("An instance of DbContext is required to use this repository");
 
+            this.Context = Context;
             DBSet = Context.Set<T>();
         }
 

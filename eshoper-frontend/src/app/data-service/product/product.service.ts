@@ -9,9 +9,9 @@ import { HomeProductSliderVo } from '../../entities/home-product-sliderVo';
 
 @Injectable()
 export class ProductService {  
-  readonly productBaseUrl = "https://localhost:44380/api/Products/";
-  readonly categoryBaseUrl = "https://localhost:44380/api/categories/";
-  readonly brandBaseUrl = "https://localhost:44380/api/brands/";
+  readonly productBaseUrl = "https://localhost:44322/api/productsapi/";
+  readonly categoryBaseUrl = "https://localhost:44322/api/categoriesapi/";
+  readonly brandBaseUrl = "https://localhost:44322/api/brands/";
 
   constructor(private http: HttpClient) { }
 

@@ -1,6 +1,12 @@
-﻿namespace WebApp.Interfaces
+﻿using WebApp.Repositories;
+
+namespace WebApp.Interfaces
 {
-    public class IEShoperUnit
+    public interface IEShoperUnit
     {
+        BrandRepository Brands { get; }
+        CategoryRepository Categories { get; }
+        PhotoImgRepository PhotoImgs { get; }
+        ProductRepository Products { get; }
     }
 }

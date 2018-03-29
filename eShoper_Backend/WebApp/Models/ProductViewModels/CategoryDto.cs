@@ -7,12 +7,12 @@ namespace WebApp.Models.ProductViewModels
 {
     public class CategoryDto
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string CategoryName { get; set; }
-        public Guid? ParentCategoryId { get; set; }
+        public int? ParentCategoryId { get; set; }
         public string CategoryCode { get; set; }
 
-        public List<CategoryDto> ChildrenCategory { get; } 
+        public List<CategoryDto> ChildrenCategory { get; set; } 
             = new List<CategoryDto>();
     }
 }

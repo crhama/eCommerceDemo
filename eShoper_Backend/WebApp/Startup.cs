@@ -13,6 +13,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.Entities;
 using WebApp.Interfaces;
+using WebApp.Models.ProductViewModels;
 
 namespace WebApp
 {
@@ -92,9 +93,28 @@ namespace WebApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Category, CategoryDto>()
+                    .ForMember(d => d.ChildrenCategory, o => o.UseDestinationValue());
+
+                cfg.CreateMap<Product, ProductDto>()
+                    .ForMember(d => d.ImageUrl, o => o.MapFrom(s => s.ImageId.SetImageUrl()));
+
+                //    cfg.CreateMap<RawProduct, ProductDto>()
+                //        .ForMember(d => d.Id, o => o.MapFrom(s => s.Product.Id))
+                //        .ForMember(d => d.ProductDescription, o => o.MapFrom(s => s.Product.Id))
+                //        .ForMember(d => d.ProductPrice, o => o.MapFrom(s => s.Product.Id))
+                //        .ForMember(d => d.PromotionType, o => o.MapFrom(s => s.Product.Id))
+                //        .ForMember(d => d.ImageUrl, o => o.MapFrom(s => s.));
+
+            });
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseCors(c => c.AllowAnyOrigin());
 
             app.UseMvc(routes =>
             {
