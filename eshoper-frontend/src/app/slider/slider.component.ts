@@ -11,6 +11,7 @@ export class SliderComponent implements OnInit {
 
   constructor(private productService: ProductService) { }
   homeProductSliderList: HomeProductSliderVo[];
+  pricingUrl: string = "https://localhost:44322/images/commons/pricing.png";
   ngOnInit() {
     this.getHomeProductSliders();
   }

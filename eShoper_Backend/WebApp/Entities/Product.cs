@@ -16,6 +16,10 @@ namespace WebApp.Entities
         public PromotionType PromotionType { get; set; }
         public Guid? ImageId { get; set; }
 
+        public bool? IsSliderItem { get; set; }
+        public bool? IsFeatureItem { get; set; }
+        public bool? IsRecommendedItem { get; set; }
+
         public Brand Brand { get; set; }
         public Category Category { get; set; }
 

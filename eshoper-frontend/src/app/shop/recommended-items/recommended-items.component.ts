@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ProductVo } from '../../entities/productvo';
+import { ProductDto } from '../../entities/productDto';
 import { ProductService } from '../../data-service/product/product.service';
 
 @Component({
@@ -9,9 +9,9 @@ import { ProductService } from '../../data-service/product/product.service';
   styleUrls: ['./recommended-items.component.css']
 })
 export class RecommendedItemsComponent implements OnInit {
-  recommendedItemList: ProductVo[][];
-  recommendedItemList1: ProductVo[];
-  recommendedItemList2: ProductVo[];
+  recommendedItemList: ProductDto[][];
+  recommendedItemList1: ProductDto[];
+  recommendedItemList2: ProductDto[];
 
   constructor(private productService: ProductService) { }
 
@@ -22,7 +22,7 @@ export class RecommendedItemsComponent implements OnInit {
   getProductVo(): void{    
       this.productService.getRecommendedItems("RecommendedItems")
       .subscribe(
-        (data:ProductVo[][] ) => this.recommendedItemList = data,
+        (data: ProductDto[][] ) => this.recommendedItemList = data,
         (err: any) => console.log(err)
       );
   }

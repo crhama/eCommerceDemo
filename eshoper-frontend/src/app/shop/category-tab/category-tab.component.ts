@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductVo } from '../../entities/productvo';
+import { ProductDto } from '../../entities/productDto';
 import { ProductService } from '../../data-service/product/product.service';
 
 @Component({
@@ -8,10 +8,10 @@ import { ProductService } from '../../data-service/product/product.service';
   styleUrls: ['./category-tab.component.css']
 })
 export class CategoryTabComponent implements OnInit {
-  tshirtTabList: ProductVo[];
-  blazersTabList: ProductVo[];
-  sunglassTabList: ProductVo[];
-  kidsTabList: ProductVo[];
+  tshirtTabList: ProductDto[];
+  blazersTabList: ProductDto[];
+  sunglassTabList: ProductDto[];
+  kidsTabList: ProductDto[];
 
   constructor(private productService: ProductService) { }
 
@@ -23,30 +23,11 @@ export class CategoryTabComponent implements OnInit {
   }
 
   getProductByCategory(): void{
-    this.productService.getProductByCategory("a84e5712-836a-4447-8ef9-cfaf25bd1465/products")
+    this.productService.getProductByCategory("1/products")
       .subscribe(
-        (data: ProductVo[]) => this.tshirtTabList = data,
+        (data: ProductDto[]) => this.tshirtTabList = data,
         (err: any) => console.log(err)
       )
-
-    // this.tshirtTabList = [
-    //   { 
-    //     id: 'a84e5712-836a-4447-8ef9-cfaf25bd1465', productDescription: 'Easy Polo Black Edition', 
-    //     promotionType: 1, price: 27.99, imageUrl: 'https://localhost:44380/images/products/home/gallery1.jpg'
-    //   },
-    //   { 
-    //     id: 'a84e5712-836a-4447-8ef9-cfaf25bd1465', productDescription: 'Easy Polo Black Edition', 
-    //     promotionType: 1, price: 14.99, imageUrl: 'https://localhost:44380/images/products/home/gallery2.jpg'
-    //   },
-    //   { 
-    //     id: 'a84e5712-836a-4447-8ef9-cfaf25bd1465', productDescription: 'Easy Polo Black Edition', 
-    //     promotionType: 1, price: 25.99, imageUrl: 'https://localhost:44380/images/products/home/gallery3.jpg'
-    //   },
-    //   { 
-    //     id: 'a84e5712-836a-4447-8ef9-cfaf25bd1465', productDescription: 'Easy Polo Black Edition', 
-    //     promotionType: 2, price: 33.99, imageUrl: 'https://localhost:44380/images/products/home/gallery4.jpg'
-    //   }
-    // ];
   }
 
 }

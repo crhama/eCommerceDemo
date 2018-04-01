@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BrandItemSummaryVo } from '../../entities/brand-item-summaryVo';
+import { BrandDto } from '../../entities/brandDto';
 import { ProductService } from '../../data-service/product/product.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { ProductService } from '../../data-service/product/product.service';
   styleUrls: ['./brand.component.css']
 })
 export class BrandComponent implements OnInit {
-  brandItemSummaryList: BrandItemSummaryVo[];
+  brandItemSummaryList: BrandDto[];
 
   constructor(private productService: ProductService) { }
 
@@ -17,9 +17,9 @@ export class BrandComponent implements OnInit {
   }
 
   getBrandItemSummary(){
-    this.productService.getBrandItemSummary("BrandItemSummary")
+    this.productService.getBrandItemSummary("BrandsWithAssociatedProductCount")
       .subscribe(
-        (data: BrandItemSummaryVo[]) => this.brandItemSummaryList = data,
+        (data: BrandDto[]) => this.brandItemSummaryList = data,
         (err: any) => console.log(err)
       )
   }

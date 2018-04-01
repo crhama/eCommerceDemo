@@ -1,6 +1,6 @@
 import { PromotionType } from "./promotion-type";
 
-export class ProductVo {
+export class ProductDto {
     constructor(
     id: string,
     productDescription: string,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductVo } from '../entities/productvo';
+import { ProductDto } from '../entities/productDto';
 import { ProductService } from '../data-service/product/product.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ProductService } from '../data-service/product/product.service';
 })
 export class HomeComponent implements OnInit {
 
-  featureItemList: ProductVo[];
+  featureItemList: ProductDto[];
 
   constructor(private productService: ProductService) { }
 
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.productService
         .getComponentProductItems("FeatureItems")
         .subscribe(
-          (data: ProductVo[]) => this.featureItemList = data,
+          (data: ProductDto[]) => this.featureItemList = data,
           (err: any) => console.log(err)
         );
   }

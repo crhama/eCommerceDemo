@@ -12,9 +12,10 @@ using WebApp.Entities;
 namespace WebApp.Data.Migrations
 {
     [DbContext(typeof(EShoperDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180329193658_Set-Flag-For-Product-Location-Display")]
+    partial class SetFlagForProductLocationDisplay
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

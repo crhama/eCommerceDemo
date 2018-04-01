@@ -9,7 +9,7 @@ using WebApp.Models.ProductViewModels;
 namespace WebApp.Controllers.api
 {
     [Produces("application/json")]
-    [Route("api/CategoriesApi")]
+    [Route("api/Categories")]
     public class CategoriesApiController : Controller
     {
         private IEShoperUnit _unit;

@@ -13,13 +13,13 @@
               <div *ngFor="let sl of homeProductSliderList; let i = index" class="item" [ngClass]="{'active': i == 0 }">
                 <div class="col-sm-6">
                   <h1><span>E</span>-SHOPPER</h1>
-                  <h2>{{ sl.title }}</h2>
-                  <p>{{ sl.description }}</p>
+                  <h2>Free E-Commerce Template</h2>
+                  <p>{{ sl.productDescription }}</p>
                   <button type="button" class="btn btn-default get">Get it now</button>
                 </div>
                 <div class="col-sm-6">
                   <img [src]="sl.imageUrl" class="girl img-responsive" alt="" />
-                  <img [src]="sl.pricingUrl"  class="pricing" alt="" />
+                  <img [src]="pricingUrl"  class="pricing" alt="" />
                 </div>
               </div>
             </div>
