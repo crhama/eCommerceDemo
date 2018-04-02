@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Entities;
 using WebApp.Interfaces;
+using WebApp.Models.CommonViewModels;
 using WebApp.Models.ProductViewModels;
 
 namespace WebApp.Controllers.api
@@ -27,6 +28,36 @@ namespace WebApp.Controllers.api
                 .GetBrandsWithAssociatedProductCount();
 
             return Ok(brandDtos);
+        }
+
+        [Route("BrandMaintenanceTable")]
+        public IActionResult GetBrandMaintenanceTable()
+        {
+            var tableData = new List<List<KeyValue>>
+            {
+                new List<KeyValue>
+                {
+                    new KeyValue { Key = "Id", Value = "Id" },
+                    new KeyValue { Key = "BrandName", Value = "Brand" }
+                },
+                new List<KeyValue>
+                {
+                    new KeyValue { Key = "Id", Value = "1" },
+                    new KeyValue { Key = "BrandName", Value = "Anne Klein" }
+                },
+                new List<KeyValue>
+                {
+                    new KeyValue { Key = "Id", Value = "2" },
+                    new KeyValue { Key = "BrandName", Value = "Georgio Armani" }
+                },
+                new List<KeyValue>
+                {
+                    new KeyValue { Key = "Id", Value = "3" },
+                    new KeyValue { Key = "BrandName", Value = "Belle" }
+                }
+            };
+
+            return Ok(tableData);
         }
     }
 }

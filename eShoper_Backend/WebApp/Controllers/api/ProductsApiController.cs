@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApp.Entities;
 using WebApp.Interfaces;
+using WebApp.Models.CommonViewModels;
 using WebApp.Models.ProductViewModels;
 
 namespace WebApp.Controllers
@@ -50,6 +51,38 @@ namespace WebApp.Controllers
             };
 
             return Ok(listOfLists);
+        }
+
+        [Route("ProductMaintenanceTable")]
+        public IActionResult GetProductMaintenanceTable()
+        {
+            var tableData = new List<List<KeyValue>>
+            {
+                new List<KeyValue>
+                {
+                    new KeyValue { Key = "Id", Value = "Id" },
+                    new KeyValue { Key = "ProductCode", Value = "Code" },
+                    new KeyValue { Key = "ProductDescription", Value = "Description" },
+                    new KeyValue { Key = "ProductPrice", Value = "Price" },
+                    new KeyValue { Key = "BrandId", Value = "Brand" },
+                    new KeyValue { Key = "Category1", Value = "Category 1" },
+                    new KeyValue { Key = "Category2", Value = "Category 2" },
+                    new KeyValue { Key = "PromotionType", Value = "Promotion" }
+                },
+                new List<KeyValue>
+                {
+                    new KeyValue { Key = "Id", Value = "1" },
+                    new KeyValue { Key = "ProductCode", Value = "WDRE-1" },
+                    new KeyValue { Key = "ProductDescription", Value = "Anne Klein Sleeveless Colorblock Scuba" },
+                    new KeyValue { Key = "ProductPrice", Value = "$59.99" },
+                    new KeyValue { Key = "BrandId", Value = "Anne Klein" },
+                    new KeyValue { Key = "Category1", Value = "Women" },
+                    new KeyValue { Key = "Category2", Value = "Dress" },
+                    new KeyValue { Key = "PromotionType", Value = "Normal" }
+                }
+            };
+
+            return Ok(tableData);
         }
     }
 }
