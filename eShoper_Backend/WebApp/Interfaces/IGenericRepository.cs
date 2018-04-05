@@ -7,11 +7,11 @@ namespace WebApp.Interfaces
         where T: class
     {
         IQueryable<T> GetAll();
-        T GetById(Guid id);
+        T GetById(int id);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        void Delete(Guid id);
+        void Delete(int id);
         void Detach(T entity);
     }
 }

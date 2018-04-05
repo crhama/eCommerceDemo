@@ -49,7 +49,7 @@ namespace WebApp.Repositories
             }
         }
 
-        public void Delete(Guid id)
+        public void Delete(int id)
         {
             var entity = GetById(id);
             if(entity != null)
@@ -69,7 +69,7 @@ namespace WebApp.Repositories
             return DBSet;
         }
 
-        public T GetById(Guid id)
+        public T GetById(int id)
         {
             return DBSet.Find(id);
         }

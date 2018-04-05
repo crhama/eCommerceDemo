@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
 import { KeyValue } from '../../entities/key-value';
 import { MaintenanceService } from '../../data-service/maintenance/maintenance.service';
 import { TableData } from '../../entities/table-data';
@@ -10,15 +11,23 @@ import { TableData } from '../../entities/table-data';
 })
 export class EntityListMaintComponent implements OnInit {
   tableData: TableData;
+  ename: string;
 
-  constructor(private maintService: MaintenanceService) { }
+  constructor(private maintService: MaintenanceService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getTableData();
+    this.route.params
+      .subscribe(
+        params => {
+          this.ename = params['ename'];
+          this.getTableData(this.ename);
+        }
+      );    
   }
 
-  getTableData(){
-    this.maintService.getTableData()
+  getTableData(ename: string){
+    this.maintService.getTableData(ename)
       .subscribe(
         (data: TableData) => this.tableData = data,
         (err: any) => console.log(err)

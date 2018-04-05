@@ -6,6 +6,7 @@ import { MainMaintComponent } from './main-maint/main-maint.component';
 import { EditMaintComponent } from './edit-maint/edit-maint.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EntityListMaintComponent } from './entity-list-maint/entity-list-maint.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 
 
 @NgModule({
@@ -14,14 +15,15 @@ import { EntityListMaintComponent } from './entity-list-maint/entity-list-maint.
     RouterModule.forChild([
       { path: 'maintenance', component: MainMaintComponent },
       { path: 'edit-maintenance', component: EditMaintComponent },
-      { path: 'entity-list-maintenance', component: EntityListMaintComponent }
+      { path: 'maintenance/:ename', component: EntityListMaintComponent },
+      { path: 'maintenance/product/new', component: ProductEditComponent }
     ])
   ],
   declarations: [
     MainMaintComponent, 
     EditMaintComponent, 
     DashboardComponent, 
-    EntityListMaintComponent
+    EntityListMaintComponent, ProductEditComponent
   ]
 })
 export class MaintenanceModule { }

@@ -1,0 +1,13 @@
+﻿@using WebApp.Views.Manage
+@inject SignInManager<WebApp.Entities.EShoperUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<ul class="nav nav-pills nav-stacked">
+    <li><a asp-controller="Brands" asp-action="Index">Brand</a></li>
+    <li><a asp-controller="Categories" asp-action="Index">Category</a></li>    
+    <li><a asp-controller="PhotoImages" asp-action="Index">Photo Images</a></li>
+    <li><a asp-controller="Products" asp-action="Index">Products</a>
+</ul>
+

@@ -4,6 +4,8 @@ using WebApp.Data;
 using WebApp.Entities;
 using WebApp.Models.ProductViewModels;
 using Microsoft.EntityFrameworkCore;
+using System;
+using WebApp.Models.CommonViewModels;
 
 namespace WebApp.Repositories
 {
@@ -26,6 +28,15 @@ namespace WebApp.Repositories
                 .ToList();
 
             return brandDtos;                
+        }
+
+        public IEnumerable<KeyValue> GetKeyValueBrands()
+        {
+            var brands = GetAll()
+                .OrderBy(b => b.BrandName)
+                .Select(b => new KeyValue { Key = b.Id.ToString(), Value = b.BrandName })
+                .ToList();
+            return brands;
         }
     }
 }

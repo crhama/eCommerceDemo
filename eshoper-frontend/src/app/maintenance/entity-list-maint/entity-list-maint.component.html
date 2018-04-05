@@ -1,6 +1,6 @@
 <section id="cart_items">
     <div class="container">
-      <a>Add New Brand</a>
+      <a [routerLink]="['/maintenance', ename, 'new']">Add new {{ ename }}</a>
       <br/><br/>
       <div class="table-responsive cart_info">
         <table *ngIf="tableData" class="table table-condensed">
@@ -12,9 +12,6 @@
           <tbody>
             <tr *ngFor="let row of tableData.bodyData">
               <td *ngFor="let c of row" [ngSwitch]="c.key">
-                <!-- <a *ngSwitchCase="'Id'" href="#">
-                    1
-                </a> -->
                 <span *ngSwitchCase="'Id'" class="cart_delete">
                     <a class="cart_quantity_delete" href="#"><i class="fa fa-times"></i></a>
                 </span>

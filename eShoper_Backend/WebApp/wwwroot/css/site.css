@@ -21,6 +21,18 @@
     width: 100%;
 }
 
+.em75{
+    font-size: .80em;
+}
+
+.px100{
+    width: 100px;
+}
+
+.px350{
+    width: 350px;
+}
+
 /* QR code generator */
 #qrCode {
     margin: 15px;

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<WebApp.Models.MaintenanceViewModels.CategoryMaintenance>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Maintenance/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Code</th>
+            <th>Category</th>
+            <th>Parent Category</th>
+            <th>Associated Products</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model)
+        {
+        <tr>
+            <td></td>
+            <td>@row.CategoryCode</td>
+            <td>@row.CategoryName</td>
+            <td>@row.ParentCategoryName</td>
+            <td>(@row.NumberOfProducts)</td>
+        </tr>
+        }
+    </tbody>
+</table>
+

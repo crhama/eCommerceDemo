@@ -1,0 +1,77 @@
+﻿@model WebApp.Models.MaintenanceViewModels.ProductViewModel
+@{
+    ViewData["Title"] = "AddEdit";
+    Layout = "~/Views/Maintenance/_Layout.cshtml";
+}
+
+<div class="row">
+    <form class="form-horizontal" method="post">
+        <div class="form-group">
+            <label asp-for="ProductCode" class="col-sm-2 control-label">Product Code</label>
+            <div class="col-sm-10">
+                <input asp-for="ProductCode" class="form-control px100" placeholder="Code">
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductDescription" class="col-sm-2 control-label">Product Description</label>
+            <div class="col-sm-10">
+                <input asp-for="ProductDescription" class="form-control px350" placeholder="Product Description">
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductPrice" class="col-sm-2 control-label">Price</label>
+            <div class="col-sm-10">
+                <input asp-for="ProductPrice" class="form-control px100" placeholder="Price">
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BrandId" class="col-sm-2 control-label">Brand</label>
+            <div class="col-sm-10">
+                <select asp-for="BrandId" class="form-control px350"
+                        asp-items="@(new SelectList(ViewBag.Brands,"Key","Value"))">
+                    <option>Please select one</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CategoryId" class="col-sm-2 control-label">Category 1</label>
+            <div class="col-sm-10">
+                <select asp-for="CategoryId" class="form-control px350"
+                        asp-items="@(new SelectList(ViewBag.Categories,"Key","Value"))">
+                    <option>Please select one</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PromotionType" class="col-sm-2 control-label">Promotion Type</label>
+            <div class="col-sm-10">
+                <select asp-for="PromotionType" class="form-control px350"
+                        asp-items="@(new SelectList(ViewBag.PromotionTypes,"Key","Value"))">
+                    <option>Please select one</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsSliderItem" type="checkbox"> Slider
+                    </label>
+                    <label>
+                        <input asp-for="IsFeatureItem" type="checkbox"> Feature
+                    </label>
+                    <label>
+                        <input asp-for="IsSliderItem" type="checkbox"> Recommended
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Sign in</button>
+            </div>
+        </div>
+    </form>
+    
+</div>

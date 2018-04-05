@@ -8,11 +8,13 @@ import { TableData } from '../../entities/table-data';
 
 @Injectable()
 export class MaintenanceService {
+  baseUrl: string = "https://localhost:44322/api/";
 
   constructor(private http: HttpClient) { }
 
-  getTableData(): Observable<TableData> {
-    return this.http.get<KeyValue[][]>('https://localhost:44322/api/products/ProductMaintenanceTable')
+  getTableData(ename: string): Observable<TableData> {
+    let url = this.constructUrl(ename);
+    return this.http.get<KeyValue[][]>(url)
       .pipe(
         map(data => <TableData>{
           headerData: data[0], 
@@ -21,5 +23,18 @@ export class MaintenanceService {
       )
   }
   
-
+  constructUrl(ename: string): string{
+      let url = this.baseUrl;
+    switch (ename) {
+      case 'brand':
+          url += 'brands/BrandMaintenanceTable';
+        break;
+      case 'product':
+        url += 'products/ProductMaintenanceTable';
+      break;      
+      default:
+        break;
+    }
+    return url;
+  }
 }

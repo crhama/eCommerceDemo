@@ -14,6 +14,7 @@ using WebApp.Services;
 using WebApp.Entities;
 using WebApp.Interfaces;
 using WebApp.Models.ProductViewModels;
+using WebApp.Models.MaintenanceViewModels;
 
 namespace WebApp
 {
@@ -101,13 +102,7 @@ namespace WebApp
                 cfg.CreateMap<Product, ProductDto>()
                     .ForMember(d => d.ImageUrl, o => o.MapFrom(s => s.ImageId.SetImageUrl()));
 
-                //    cfg.CreateMap<RawProduct, ProductDto>()
-                //        .ForMember(d => d.Id, o => o.MapFrom(s => s.Product.Id))
-                //        .ForMember(d => d.ProductDescription, o => o.MapFrom(s => s.Product.Id))
-                //        .ForMember(d => d.ProductPrice, o => o.MapFrom(s => s.Product.Id))
-                //        .ForMember(d => d.PromotionType, o => o.MapFrom(s => s.Product.Id))
-                //        .ForMember(d => d.ImageUrl, o => o.MapFrom(s => s.));
-
+                cfg.CreateMap<Product, ProductViewModel>();
             });
 
             app.UseStaticFiles();

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using WebApp.Data;
 using WebApp.Entities;
+using WebApp.Models.MaintenanceViewModels;
 using WebApp.Models.ProductViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Repositories
 {
@@ -41,6 +43,27 @@ namespace WebApp.Repositories
             var ProductDtoList = Mapper.Map<IEnumerable<ProductDto>>(ProductList);
 
             return ProductDtoList;
+        }
+
+        public IEnumerable<ProductMaintenance> GetProductMaintenances()
+        {
+            var productList = GetAll()
+                .Include(p => p.Brand).Include(p => p.Category)
+                .Select(p => new ProductMaintenance
+                {
+                    Id = p.Id,
+                    ProductCode = p.ProductCode,
+                    ProductDescription = p.ProductDescription,
+                    ProductPrice = p.ProductPrice,
+                    PromotionType = p.PromotionType,
+                    BrandName = p.Brand.BrandName,
+                    CategoryName = p.Category.CategoryName,
+                    IsFeatureItem = p.IsFeatureItem ?? false,
+                    IsRecommendedItem = p.IsRecommendedItem ?? false,
+                    IsSliderItem = p.IsSliderItem ?? false
+                })
+                .ToList();
+            return productList;
         }
     }
 }
