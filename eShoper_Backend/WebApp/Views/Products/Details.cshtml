@@ -1,0 +1,36 @@
+﻿@model WebApp.Models.MaintenanceViewModels.ProductDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Maintenance/_Layout.cshtml";
+}
+
+<div>
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.ProductCode)</th>
+            <td>@Model.ProductCode</td>
+            <th>@Html.DisplayNameFor(model => model.ProductDescription)</th>
+            <td colspan="5">@Model.ProductDescription</td>
+            <th>@Html.DisplayNameFor(model => model.ProductPrice)</th>
+            <td>@Model.ProductPrice</td>
+        </tr>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.BrandName)</th>
+            <td>@Model.BrandName</td>
+            <th>@Html.DisplayNameFor(model => model.CategoryName)</th>
+            <td>@Model.CategoryName</td>
+
+            <th>@Html.DisplayNameFor(model => model.IsFeatureItem)</th>
+            <td><input asp-for="IsFeatureItem" type="checkbox" /></td>
+            <th>@Html.DisplayNameFor(model => model.IsRecommendedItem)</th>
+            <td><input asp-for="IsRecommendedItem" type="checkbox" /></td>
+            <th>@Html.DisplayNameFor(model => model.IsSliderItem)</th>
+            <td><input asp-for="IsSliderItem" type="checkbox" /></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
