@@ -27,7 +27,12 @@ namespace WebApp.Controllers
 
         public IActionResult Details(int id)
         {
-            return View("AddEdit");
+            var product = _unit.Products.GetProductDetails(id);
+            ViewBag.H2Title = "Products";
+            ViewBag.H4Title = $"Details { product.ProductCode }";
+            var vm = Mapper.Map<ProductDetailsViewModel>(product);
+
+            return View(vm);
         }
 
         public IActionResult Edit(int id)
@@ -38,18 +43,46 @@ namespace WebApp.Controllers
                 .GetKeyValueFromEnum<PromotionType>();
 
             var product = _unit.Products.GetById(id);
+
+            ViewBag.H2Title = "Products";
+            ViewBag.H4Title = $"Edit { product.ProductCode }";
+            
             var vm = Mapper.Map<ProductViewModel>(product);
             return View("AddEdit", vm);
         }
 
         public IActionResult Add()
         {
+            ViewBag.H2Title = "Products";
+            ViewBag.H4Title = "Add new product";
+
             ViewBag.Brands = _unit.Brands.GetKeyValueBrands();
             ViewBag.Categories = _unit.Categories.GetCategoriesForDDL();
             ViewBag.PromotionTypes = UtilityService
                 .GetKeyValueFromEnum<PromotionType>();
 
-            return View("AddEdit");
+            return View("AddEdit", new ProductViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult AddEdit(ProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Brands = _unit.Brands.GetKeyValueBrands();
+                ViewBag.Categories = _unit.Categories.GetCategoriesForDDL();
+                ViewBag.PromotionTypes = UtilityService
+                    .GetKeyValueFromEnum<PromotionType>();
+
+                return View(model);
+            }
+
+            Product product = Mapper.Map<Product>(model);
+
+            _unit.Products.Add(product);
+            _unit.SaveChanges();
+
+            return RedirectToAction("Details", new { id = product.Id });
         }
     }
 }

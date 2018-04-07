@@ -6,6 +6,7 @@ using WebApp.Entities;
 using WebApp.Models.MaintenanceViewModels;
 using WebApp.Models.ProductViewModels;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace WebApp.Repositories
 {
@@ -45,11 +46,23 @@ namespace WebApp.Repositories
             return ProductDtoList;
         }
 
-        public IEnumerable<ProductMaintenance> GetProductMaintenances()
+        public Product GetProductDetails(int id)
+        {
+            var product = GetAll()
+                .Include(p => p.Brand)
+                .Include(p => p.Category)
+                .Include(p => p.Category.ParentCategory)
+                .Include(p => p.PhotoImages)
+                .FirstOrDefault(p => p.Id == id);
+
+            return product;
+        }
+
+        public IEnumerable<ProductDetailsViewModel> GetProductMaintenances()
         {
             var productList = GetAll()
                 .Include(p => p.Brand).Include(p => p.Category)
-                .Select(p => new ProductMaintenance
+                .Select(p => new ProductDetailsViewModel
                 {
                     Id = p.Id,
                     ProductCode = p.ProductCode,

@@ -8,5 +8,6 @@ namespace WebApp.Interfaces
         CategoryRepository Categories { get; }
         PhotoImgRepository PhotoImgs { get; }
         ProductRepository Products { get; }
+        void SaveChanges();
     }
 }

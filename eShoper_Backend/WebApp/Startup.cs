@@ -102,7 +102,14 @@ namespace WebApp
                 cfg.CreateMap<Product, ProductDto>()
                     .ForMember(d => d.ImageUrl, o => o.MapFrom(s => s.ImageId.SetImageUrl()));
 
-                cfg.CreateMap<Product, ProductViewModel>();
+                cfg.CreateMap<Product, ProductViewModel>()
+                    .ReverseMap();
+
+                cfg.CreateMap<Product, ProductDetailsViewModel>()
+                    .ForMember(p => p.BrandName, o => o.MapFrom(s => s.Brand.BrandName))
+                    .ForMember(p => p.CategoryName, 
+                               o => o.MapFrom(s => $"{ s.Category.CategoryName} ({ s.Category.ParentCategory.CategoryName})"))
+                    .ReverseMap();
             });
 
             app.UseStaticFiles();
