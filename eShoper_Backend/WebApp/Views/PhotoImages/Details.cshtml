@@ -1,0 +1,85 @@
+﻿@model WebApp.Entities.PhotoImage
+@using WebApp.Services
+@using WebApp.Models.CommonViewModels
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Maintenance/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" enctype="multipart/form-data"
+              asp-controller="UploadFiles" asp-action="Index">
+            <div class="col-md-6">
+                <div class="col-sm-7">
+                    <input type="file" name="files" />
+                </div>
+                <input type="submit" value="Upload" />
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label></label>
+                    <div class="col-sm-10">
+                        <select class="form-control"
+                                asp-items="@(new SelectList(ViewBag.PageLocations,"Key","Value"))">
+                            <option>Please select a location</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<br />
+<hr />
+
+@if (Model != null)
+{
+    <div class="well">
+        <div class="row">
+            <div class="col-sm-2">
+                <img src="@Model.Id.SetImageUrl()" width="85" class="img-thumbnail" alt="Cinque Terre">
+            </div>
+            <div class="col-sm-10">
+                <table class="table">
+                    <tr>
+                        <th>Id</th>
+                        <td>@Model.Id.ToString()</td>
+                        <th>Width</th>
+                        <td>@Model.Width</td>
+                    </tr>
+                    <tr>
+                        <th>Original Name</th>
+                        <td>@Model.OriginalName</td>
+                        <th>Height</th>
+                        <td>@Model.Height</td>
+                    </tr>
+                    <tr>
+                        <th>PageLocation</th>
+                        <td>@Model.PageLocation</td>
+                        <th>Resolution</th>
+                        <td>@Model.Resolution</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>@Model.Description</td>
+                        <th>File Extension</th>
+                        <td>@Model.FileExtension</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@section MaintenanceSection{
+    @await Html.PartialAsync("_MaintenanceHeaderPartial", (KeyValue)ViewBag.MaintenanceHeader)
+}
+
+

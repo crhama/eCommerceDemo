@@ -7,6 +7,7 @@ namespace WebApp.Entities
 {
     public enum PageLocation
     {
+        Unkown_Location,
         Home_Slider = 1,        //1
         Home_Category,          //2
         Home_Feature_Items,     //3

@@ -1,0 +1,24 @@
+﻿@using WebApp.Services
+@model IEnumerable<WebApp.Models.MaintenanceViewModels.PhotoByProductViewModel>
+
+
+<div class="row">
+
+    @foreach (var loc in Model)
+    {
+    <div class="col-md-3">
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a asp-controller="PhotoImages" asp-action="Details" asp-route-id="@loc.PageLocation.ToString()">@loc.PageLocation.ToString()</a>
+                    <br /><br />
+                    <a asp-controller="PhotoImages" asp-action="Details" asp-route-id="@loc.Id">
+                        <img src="@loc.Id.SetImageUrl()" width="85" class="img-thumbnail" alt="Cinque Terre">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+            }
+        </div>

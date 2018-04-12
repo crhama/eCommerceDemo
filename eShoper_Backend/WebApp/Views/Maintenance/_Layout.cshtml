@@ -1,17 +1,16 @@
-﻿@{ 
+﻿@using WebApp.Models.CommonViewModels
+@{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.H2Title</h2>
+@RenderSection("MaintenanceSection", required: true)
 
 <div>
-    <h4>@ViewBag.H4Title</h4>
-    <hr />
     <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-2">
             @await Html.PartialAsync("_MaintenanceNav")
         </div>
-        <div class="col-md-11">
+        <div class="col-md-10">
             @RenderBody()
         </div>
     </div>
@@ -20,4 +19,4 @@
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }
-        
+

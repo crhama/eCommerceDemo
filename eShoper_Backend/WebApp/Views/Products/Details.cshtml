@@ -1,4 +1,5 @@
 ﻿@model WebApp.Models.MaintenanceViewModels.ProductDetailsViewModel
+@using WebApp.Models.CommonViewModels
 
 @{
     ViewData["Title"] = "Details";
@@ -34,3 +35,38 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<br />
+<hr />
+
+<form method="post" enctype="multipart/form-data"
+      asp-controller="UploadFiles" asp-action="Index">
+    <div class="col-md-6">
+        <div class="col-sm-7">
+            <input type="file" name="files" />
+        </div>
+        <input type="submit" value="Upload" />
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label></label>
+            <div class="col-sm-10">
+                <select class="form-control"
+                        asp-items="@(new SelectList(ViewBag.PageLocations,"Key","Value"))">
+                    <option>Please select a location</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br />
+<hr />
+<div class="col-md-12">
+    @await Component.InvokeAsync("PhotoImage", new { productId = Model.Id })
+</div>
+
+@section MaintenanceSection{
+    @await Html.PartialAsync("_MaintenanceHeaderPartial", (KeyValue)ViewBag.MaintenanceHeader)
+}
+

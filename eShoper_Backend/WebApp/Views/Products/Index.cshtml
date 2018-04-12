@@ -1,4 +1,4 @@
-﻿
+﻿@using WebApp.Models.CommonViewModels
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Maintenance/_Layout.cshtml";
@@ -26,20 +26,28 @@
     <tbody>
         @foreach (var row in Model)
         {
-        <tr>
-            <td><b><a asp-action="Details" asp-route-id="@row.Id">
-                @row.ProductCode</a></b>
-            </td>
-            <td>@row.ProductDescription</td>
-            <td>@row.ProductPrice</td>
-            <td>@row.PromotionType</td>
-            <td>@row.BrandName</td>
-            <td>@row.CategoryName</td>
-            <td>@row.IsFeatureItem</td>
-            <td>@row.IsRecommendedItem</td>
-            <td>@row.IsSliderItem</td>
-        </tr>
+            <tr>
+                <td>
+                    <b>
+                        <a asp-action="Details" asp-route-id="@row.Id">
+                            @row.ProductCode
+                        </a>
+                    </b>
+                </td>
+                <td>@row.ProductDescription</td>
+                <td>@row.ProductPrice</td>
+                <td>@row.PromotionType</td>
+                <td>@row.BrandName</td>
+                <td>@row.CategoryName</td>
+                <td>@row.IsFeatureItem</td>
+                <td>@row.IsRecommendedItem</td>
+                <td>@row.IsSliderItem</td>
+            </tr>
         }
     </tbody>
 </table>
+
+@section MaintenanceSection{
+    @await Html.PartialAsync("_MaintenanceHeaderPartial", (KeyValue)ViewBag.MaintenanceHeader)
+}
 

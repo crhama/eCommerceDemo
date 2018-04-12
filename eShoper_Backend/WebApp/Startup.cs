@@ -118,6 +118,8 @@ namespace WebApp
 
             app.UseCors(c => c.AllowAnyOrigin());
 
+
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

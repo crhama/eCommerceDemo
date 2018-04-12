@@ -1,8 +1,13 @@
-﻿
+﻿@using WebApp.Models.CommonViewModels
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Maintenance/_Layout.cshtml";
 }
 
 <h2>Photo Image Index</h2>
+
+@section MaintenanceSection{
+    @await Html.PartialAsync("_MaintenanceHeaderPartial", (KeyValue)ViewBag.MaintenanceHeader)
+}
 

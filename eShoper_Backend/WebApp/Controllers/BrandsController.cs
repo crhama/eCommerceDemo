@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApp.Interfaces;
+using WebApp.Models.CommonViewModels;
 
 namespace WebApp.Controllers
 {
@@ -14,6 +15,9 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.MaintenanceHeader =
+                new KeyValue { Key = "Products", Value = "Details" };
+
             var brands = _unit.Brands.GetAll();
             return View(brands);
         }

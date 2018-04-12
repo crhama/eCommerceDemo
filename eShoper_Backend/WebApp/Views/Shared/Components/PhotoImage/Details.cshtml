@@ -1,0 +1,45 @@
+﻿@using WebApp.Services
+@model IEnumerable<WebApp.Entities.PhotoImage>
+
+
+<div class="row">
+
+    @foreach (var ph in Model)
+    {
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-2">
+                    <img src="@ph.Id.SetImageUrl()" width="85" class="img-thumbnail" alt="Cinque Terre">
+                </div>
+                <div class="col-sm-10">
+                    <table class="table">
+                        <tr>
+                            <th>Id</th>
+                            <td>@ph.Id.ToString()</td>
+                            <th>Width</th>
+                            <td>@ph.Width</td>
+                        </tr>
+                        <tr>
+                            <th>Original Name</th>
+                            <td>@ph.OriginalName</td>
+                            <th>Height</th>
+                            <td>@ph.Height</td>
+                        </tr>
+                        <tr>
+                            <th>PageLocation</th>
+                            <td>@ph.PageLocation</td>
+                            <th>Resolution</th>
+                            <td>@ph.Resolution</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>@ph.Description</td>
+                            <th>File Extension</th>
+                            <td>@ph.FileExtension</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

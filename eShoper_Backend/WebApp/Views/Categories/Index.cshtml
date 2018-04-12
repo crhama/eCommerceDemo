@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<WebApp.Models.MaintenanceViewModels.CategoryMaintenance>
+@using WebApp.Models.CommonViewModels
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Maintenance/_Layout.cshtml";
@@ -17,14 +18,19 @@
     <tbody>
         @foreach (var row in Model)
         {
-        <tr>
-            <td></td>
-            <td>@row.CategoryCode</td>
-            <td>@row.CategoryName</td>
-            <td>@row.ParentCategoryName</td>
-            <td>(@row.NumberOfProducts)</td>
-        </tr>
+            <tr>
+                <td></td>
+                <td>@row.CategoryCode</td>
+                <td>@row.CategoryName</td>
+                <td>@row.ParentCategoryName</td>
+                <td>(@row.NumberOfProducts)</td>
+            </tr>
         }
     </tbody>
 </table>
+
+@section MaintenanceSection{
+    @await Html.PartialAsync("_MaintenanceHeaderPartial", (KeyValue)ViewBag.MaintenanceHeader)
+}
+
 

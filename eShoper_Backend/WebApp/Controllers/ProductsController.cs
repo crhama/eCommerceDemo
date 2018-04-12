@@ -6,6 +6,7 @@ using WebApp.Entities;
 using WebApp.Interfaces;
 using WebApp.Models.MaintenanceViewModels;
 using WebApp.Services;
+using WebApp.Models.CommonViewModels;
 
 namespace WebApp.Controllers
 {
@@ -20,6 +21,9 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.MaintenanceHeader = 
+                new KeyValue { Key = "Products", Value = "Details" };
+
             var productList = _unit.Products
                 .GetProductMaintenances();
             return View(productList);
@@ -28,8 +32,12 @@ namespace WebApp.Controllers
         public IActionResult Details(int id)
         {
             var product = _unit.Products.GetProductDetails(id);
-            ViewBag.H2Title = "Products";
-            ViewBag.H4Title = $"Details { product.ProductCode }";
+            ViewBag.MaintenanceHeader =
+                new KeyValue { Key = "Products", Value = $"Details { product.ProductCode }" };
+
+            ViewBag.PageLocations = UtilityService
+                .GetKeyValueFromEnum<PageLocation>();
+
             var vm = Mapper.Map<ProductDetailsViewModel>(product);
 
             return View(vm);
