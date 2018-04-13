@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ImageMagick;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using WebApp.Entities;
 using WebApp.Interfaces;
-using WebApp.Services;
-using System;
 using WebApp.Models.CommonViewModels;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using WebApp.Services;
 
 namespace WebApp.Controllers
@@ -33,6 +35,7 @@ namespace WebApp.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Details(string id, int productId, string pagelocation)
         {
             ViewBag.PageLocations = UtilityService
@@ -45,8 +48,8 @@ namespace WebApp.Controllers
             if (Guid.TryParse(id, out Guid fileId))
             {
                 string webRootPath = _hostingEnvironment.WebRootPath;
-                string path = Path.Combine(webRootPath, "images/products", fileId.ToString() + ".jpg");
-                if(System.IO.File.Exists(path))
+                string path = Path.Combine(webRootPath, "images/maintenance", fileId.ToString() + ".jpg");
+                if (System.IO.File.Exists(path))
                 {
                     imageExistId = true;
                 }
@@ -60,47 +63,94 @@ namespace WebApp.Controllers
                         : new PhotoImage
                         {
                             Id = Guid.Empty,
-                            PageLocation = location
+                            PageLocation = location,
+                            ProductId = productId
                         };
 
             return View(photo);
         }
 
-        public async Task<IActionResult> UploadProductImage(
-                                            IFormFile file, 
+        [HttpPost]
+        public IActionResult UploadProductImage(
+                                            IFormFile file,
                                             int productId,
                                             PageLocation pagelocation)
         {
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            var photoId = Guid.NewGuid();
-            string filePath = Path.Combine(
-                                            webRootPath,
-                                            "images/tests",
-                                            photoId.ToString(),
-                                            file.GetFileExtension());
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            PhotoImage existingImage = _unit.PhotoImgs
+                .GetImageByProductAndPageLocation(productId, pagelocation);
+
+            var photoId = Guid.NewGuid();
+            if (existingImage != null)
             {
-                await file.CopyToAsync(stream);
+                photoId = existingImage.Id;
             }
 
-            var photo = new PhotoImage
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string filePath = Path.Combine(
+                                            webRootPath,
+                                            "images/maintenance",
+                                            photoId.ToString() +
+                                            file.GetFileExtension());
+            try
             {
-                Id = photoId,
-                ProductId = productId,
-                PageLocation = pagelocation,
-                OriginalName = file.FileName,
-                FileExtension = file.ContentType               
-            };
+                var photo = new PhotoImage();
 
+                if (existingImage != null
+                    && System.IO.File.Exists(filePath))
+                {
+                    photo = existingImage;
 
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-            //var obj = new { id = , productId = productId, pagelocation  = pagelocation };
+                    if (System.IO.File.Exists(filePath + "__"))
+                        System.IO.File.Delete(filePath + "__");
 
-            //return RedirectToAction("Details", obj);
+                    System.IO.File.Move(filePath, filePath + "__");
+                }
+                else
+                {
+                    photo.Id = photoId;
+                    photo.ProductId = productId;
+                    photo.PageLocation = pagelocation;                    
+                }
 
-            return Ok(new { webRootPath });
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+                photo.OriginalName = file.FileName;
+                photo.FileExtension = file.ContentType;
+
+                using (var image = new MagickImage(filePath))
+                {
+                    photo.Width = image.Width;
+                    photo.Height = image.Height;
+                    photo.Resolution = image.Quality;
+                }
+
+                if (existingImage != null)
+                    _unit.PhotoImgs.Update(photo);
+                else
+                    _unit.PhotoImgs.Add(photo);
+
+                _unit.SaveChanges();
+
+            }
+            catch (Exception)
+            {
+                if (existingImage != null
+                    && System.IO.File.Exists(filePath + "__"))
+                {
+                    System.IO.File.Move(filePath + "__", filePath);
+                }
+            }
+
+            return RedirectToAction(nameof(Details), 
+                            new { id = photoId.ToString(),
+                                pagelocation = pagelocation.ToString(),
+                                productId
+                            });
         }
+
     }
 }

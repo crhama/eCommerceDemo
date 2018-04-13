@@ -49,5 +49,13 @@ namespace WebApp.Repositories
                     .FirstOrDefault(i => i.Id == id);
             return img;
         }
+
+        public PhotoImage GetImageByProductAndPageLocation
+                (int productId, PageLocation pagelocation)
+        {
+            return Context.PhotoImages
+                .FirstOrDefault(ph => ph.ProductId == productId
+                                   && ph.PageLocation == pagelocation);
+        }
     }
 }

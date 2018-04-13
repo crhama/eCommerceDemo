@@ -62,9 +62,9 @@ namespace WebApp.Data
             }
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
         public void Dispose()

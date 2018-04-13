@@ -18,15 +18,15 @@ namespace WebApp.Services
         public static string SetImageUrl(this Guid imageId)
         {
             return (imageId == Guid.Empty) 
-                ? $"https://localhost:44322/images/products/no-image-available.jpg"
-                : $"https://localhost:44322/images/products/{imageId.ToString()}.jpg";
+                ? $"https://localhost:44322/images/maintenance/no-image-available.jpg"
+                : $"https://localhost:44322/images/maintenance/{imageId.ToString()}.jpg";
         }
 
         public static string SetImageUrl(this string strImageId)
         {
             return (Guid.TryParse(strImageId, out Guid imageId)) ? 
-                $"https://localhost:44322/images/products/{imageId.ToString()}.jpg"
-                : $"https://localhost:44322/images/products/no-image-available.jpg";
+                $"https://localhost:44322/images/maintenance/{imageId.ToString()}.jpg"
+                : $"https://localhost:44322/images/maintenance/no-image-available.jpg";
         }
 
         public static bool IsConvertibleTo<T>(this string value)

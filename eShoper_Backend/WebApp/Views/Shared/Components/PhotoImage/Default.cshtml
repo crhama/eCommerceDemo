@@ -16,7 +16,7 @@
                        asp-route-productid="@loc.ProductId">@loc.PageLocation.ToString()</a>
                     <br /><br />
                     <a asp-controller="PhotoImages" asp-action="Details" asp-route-id="@loc.Id">
-                        <img src="@loc.Id.SetImageUrl()" width="85" class="img-thumbnail" alt="Cinque Terre">
+                        <img src="@loc.Id.SetImageUrl()" width="85" class="img-thumbnail" alt="@loc.PageLocation.ToString()">
                     </a>
                 </div>
             </div>
