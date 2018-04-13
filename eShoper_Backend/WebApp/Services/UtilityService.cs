@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -83,6 +84,11 @@ namespace WebApp.Services
         {
             return (EqualityComparer<Guid>.Default.Equals(id, default(Guid)))
                 ? "" : id.ToString();
+        }
+
+        public static string GetFileExtension(this IFormFile file)
+        {
+            return ".jpg";
         }
     }
 }

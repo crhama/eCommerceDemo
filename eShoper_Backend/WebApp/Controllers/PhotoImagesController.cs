@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using WebApp.Services;
 
 namespace WebApp.Controllers
 {
@@ -75,7 +76,8 @@ namespace WebApp.Controllers
             string filePath = Path.Combine(
                                             webRootPath,
                                             "images/tests",
-                                            photoId.ToString());
+                                            photoId.ToString(),
+                                            file.GetFileExtension());
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
