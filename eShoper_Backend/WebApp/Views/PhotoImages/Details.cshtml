@@ -7,17 +7,14 @@
     Layout = "~/Views/Maintenance/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
-<hr />
 
 <div class="row">
     <div class="col-md-12">
         <form method="post" enctype="multipart/form-data"
-              asp-controller="UploadFiles" asp-action="Index">
+              asp-controller="PhotoImages" asp-action="UploadProductImage">
             <div class="col-md-6">
                 <div class="col-sm-7">
-                    <input type="file" name="files" />
+                    <input type="file" name="file" />
                 </div>
                 <input type="submit" value="Upload" />
             </div>
@@ -50,7 +47,7 @@
                 <table class="table">
                     <tr>
                         <th>Id</th>
-                        <td>@Model.Id.ToString()</td>
+                        <td>@Model.Id.DisplayEmptyStringIfDefault()</td>
                         <th>Width</th>
                         <td>@Model.Width</td>
                     </tr>

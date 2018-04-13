@@ -16,7 +16,9 @@ namespace WebApp.Services
 
         public static string SetImageUrl(this Guid imageId)
         {
-            return $"https://localhost:44322/images/products/{imageId.ToString()}.jpg";
+            return (imageId == Guid.Empty) 
+                ? $"https://localhost:44322/images/products/no-image-available.jpg"
+                : $"https://localhost:44322/images/products/{imageId.ToString()}.jpg";
         }
 
         public static string SetImageUrl(this string strImageId)
@@ -36,7 +38,6 @@ namespace WebApp.Services
 
         public static IEnumerable<KeyValue> GetKeyValueVisualLocations()
         {
-            //string[] valueToExclude = { "Unkown_Location", "Home_Brands", "Home_Category" };
             string[] valueToExclude =  ExtractStringFromEnum(
                                   PageLocation.Unkown_Location,
                                   PageLocation.Home_Brands,
@@ -76,6 +77,12 @@ namespace WebApp.Services
             }
 
             return list.ToArray();
+        }
+
+        public static string DisplayEmptyStringIfDefault(this Guid id)
+        {
+            return (EqualityComparer<Guid>.Default.Equals(id, default(Guid)))
+                ? "" : id.ToString();
         }
     }
 }
