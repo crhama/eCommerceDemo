@@ -1,12 +1,32 @@
 ﻿@model WebApp.Entities.PhotoImage
 @using WebApp.Services
 @using WebApp.Models.CommonViewModels
+@using Newtonsoft.Json;
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Maintenance/_Layout.cshtml";
 }
 
+@if (TempData["fileUploadSucces"] != null)
+{
+    var kv = JsonConvert.DeserializeObject<KeyValuePair<bool, string>>(
+            TempData["fileUploadSucces"].ToString()
+        );
+
+    if (kv.Key)
+    {
+        <div class="alert alert-success" role="alert">
+            @kv.Value
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @kv.Value
+        </div>
+    }
+}
 
 <div class="row">
     <div class="col-md-12">

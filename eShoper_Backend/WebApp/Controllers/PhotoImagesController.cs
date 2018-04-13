@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -135,6 +136,9 @@ namespace WebApp.Controllers
 
                 _unit.SaveChanges();
 
+                TempData["fileUploadSucces"]  = JsonConvert.SerializeObject(
+                     new KeyValuePair<bool, string>(true, "Image successfully added."));
+
             }
             catch (Exception)
             {
@@ -143,6 +147,9 @@ namespace WebApp.Controllers
                 {
                     System.IO.File.Move(filePath + "__", filePath);
                 }
+
+                TempData["fileUploadSucces"] = JsonConvert.SerializeObject(
+                     new KeyValuePair<bool, string>(false, "Image upload failed."));
             }
 
             return RedirectToAction(nameof(Details), 
