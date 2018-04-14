@@ -112,7 +112,7 @@ namespace WebApp.Controllers
                 {
                     photo.Id = photoId;
                     photo.ProductId = productId;
-                    photo.PageLocation = pagelocation;                    
+                    photo.PageLocation = pagelocation;
                 }
 
                 using (var stream = new FileStream(filePath, FileMode.Create))
@@ -137,7 +137,7 @@ namespace WebApp.Controllers
 
                 _unit.SaveChanges();
 
-                TempData["fileUploadSucces"]  = JsonConvert.SerializeObject(
+                TempData["fileUploadSucces"] = JsonConvert.SerializeObject(
                      new KeyValuePair<bool, string>(true, "Image successfully added."));
 
             }
@@ -153,12 +153,110 @@ namespace WebApp.Controllers
                      new KeyValuePair<bool, string>(false, "Image upload failed."));
             }
 
-            return RedirectToAction(nameof(Details), 
-                            new { id = photoId.ToString(),
+            return RedirectToAction(nameof(Details),
+                            new
+                            {
+                                id = photoId.ToString(),
                                 pagelocation = pagelocation.ToString(),
                                 productId
                             });
         }
 
+
+        [HttpPost]
+        public IActionResult DownsizeExistingFile(int productId, 
+              PageLocation origPageLocation, PageLocation destPageLocation)
+        {
+            string downsizedFilePath = string.Empty;
+            string downsizeSuccesId = string.Empty;
+            try
+            {
+                PhotoImage upperSizeImage = _unit.PhotoImgs
+                .GetImageByProductAndPageLocation(productId, origPageLocation);
+
+                if (upperSizeImage != null)
+                {
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string upperSizeFilePath = Path.Combine(
+                                                    webRootPath,
+                                                    "images/maintenance",
+                                                    upperSizeImage.Id.ToString() +
+                                                    upperSizeImage.OriginalName.GetFileExtension());
+
+                    if (System.IO.File.Exists(upperSizeFilePath))
+                    {
+                        var downsizedFileId = Guid.NewGuid();
+                        downsizedFilePath = Path.Combine(
+                                                    webRootPath,
+                                                    "images/maintenance",
+                                                    downsizedFileId.ToString() +
+                                                    upperSizeImage.OriginalName.GetFileExtension());
+
+                        System.IO.File.Copy(upperSizeFilePath, downsizedFilePath);
+
+                        var wLoc = UtilityService.GetPageLocationWeighting()
+                            .First(ph => ph.PageLocation == destPageLocation);
+
+                        using (var image = new MagickImage(downsizedFilePath))
+                        {
+                            MagickGeometry size = new MagickGeometry(wLoc.Width, wLoc.Height);
+                            size.IgnoreAspectRatio = true;
+                            image.Resize(size);
+
+                            image.Write(downsizedFilePath);
+                        }
+
+                        var downsizedFile = new PhotoImage
+                        {
+                            Id = downsizedFileId,
+                            ProductId = productId,
+                            Width = wLoc.Width,
+                            Height = wLoc.Height,
+                            PageLocation = destPageLocation,
+                            Resolution = upperSizeImage.Resolution,
+                            FileExtension = upperSizeImage.FileExtension,
+                            OriginalName = upperSizeImage.OriginalName,
+                        };
+
+                        _unit.PhotoImgs.Add(downsizedFile);
+                        _unit.SaveChanges();
+
+                        downsizeSuccesId = downsizedFile.Id.ToString();
+                    }
+                    else
+                        throw new InvalidOperationException("Specified image to downsize couldn't be found.");
+                }
+                else
+                    throw new InvalidOperationException("Specified image to downsize couldn't be found.");
+
+                TempData["fileUploadSucces"] = JsonConvert.SerializeObject(
+                         new KeyValuePair<bool, string>(true, "Image successfully added by downsizing an existing image."));
+            }
+            catch (Exception ex)
+            {
+                if (System.IO.File.Exists(downsizedFilePath))
+                {
+                    System.IO.File.Delete(downsizedFilePath);
+                    var downsizedFile = _unit.PhotoImgs
+                            .GetImageByProductAndPageLocation(productId, destPageLocation);
+                    if (downsizedFile != null)
+                    {
+                        _unit.PhotoImgs.Delete(downsizedFile);
+                        _unit.SaveChanges();
+                    }
+                }
+
+                TempData["fileUploadSucces"] = JsonConvert.SerializeObject(
+                     new KeyValuePair<bool, string>(false, "Image upload failed."));
+            }
+
+            return RedirectToAction(nameof(Details),
+                            new
+                            {
+                                id = downsizeSuccesId,
+                                pagelocation = destPageLocation.ToString(),
+                                productId
+                            });
+        }
     }
 }

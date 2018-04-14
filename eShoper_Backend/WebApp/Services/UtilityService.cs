@@ -91,6 +91,12 @@ namespace WebApp.Services
             return ".jpg";
         }
 
+        public static string GetFileExtension(this string originalName)
+        {
+            string extension = System.IO.Path.GetExtension(originalName);
+            return extension;
+        }
+
         public static IEnumerable<ImageWeightInfo> GetPageLocationWeighting()
         {
             var listOfImageInfos = new List<ImageWeightInfo>
