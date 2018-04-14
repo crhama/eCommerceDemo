@@ -1,4 +1,5 @@
 ﻿@using WebApp.Models.CommonViewModels
+@model IEnumerable<WebApp.Models.MaintenanceViewModels.ProductDetailsViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Maintenance/_Layout.cshtml";
@@ -6,27 +7,27 @@
 
 
 
-<table class="table em75">
-    <thead>
+<table class="table table-sm table-bordered table-hover table-striped">
+    <thead  class="bg-primary">
         <tr>
-            <th rowspan="2">Code</th>
-            <th rowspan="2">Description</th>
-            <th rowspan="2">Price</th>
-            <th rowspan="2">Promotion</th>
-            <th rowspan="2">Brand</th>
-            <th rowspan="2">Category</th>
-            <th colspan="3">Page Location</th>
-        </tr>
-        <tr>
-            <th>Feature</th>
-            <th>Recommended</th>
-            <th>Slider</th>
+            <th></th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Promotion</th>
+            <th>Brand</th>
+            <th>Category</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var row in Model)
         {
             <tr>
+                <td>
+                    <a class="btn" data-toggle="collapse" href="@("#row" + row.Id)" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <span class="glyphicon glyphicon-collapse-down"></span>
+                    </a>
+                </td>
                 <td>
                     <b>
                         <a asp-action="Details" asp-route-id="@row.Id">
@@ -39,9 +40,36 @@
                 <td>@row.PromotionType</td>
                 <td>@row.BrandName</td>
                 <td>@row.CategoryName</td>
-                <td>@row.IsFeatureItem</td>
-                <td>@row.IsRecommendedItem</td>
-                <td>@row.IsSliderItem</td>
+            </tr>
+            <tr class="collapse" id="@("row" + row.Id)">
+                <td colspan="7">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" disabled asp-for="@row.IsFeatureItem">
+                                    Featured
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" disabled asp-for="@row.IsRecommendedItem">
+                                    Recommended
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" disabled asp-for="@row.IsSliderItem">
+                                    Slider
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         }
     </tbody>
