@@ -30,6 +30,19 @@ namespace WebApp.Repositories
             return brandDtos;                
         }
 
+        public BrandDto GetSingleBrandWithAssociatedProductCount(int id)
+        {
+            var brand = Context.Brands
+                .Include(b => b.Products)
+                .FirstOrDefault(b => b.Id == id);
+            return new BrandDto
+            {
+                Id = brand.Id,
+                BrandName = brand.BrandName,
+                ProductCount = brand.Products.Count
+            };
+        }
+
         public IEnumerable<KeyValue> GetKeyValueBrands()
         {
             var brands = GetAll()

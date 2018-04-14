@@ -5,16 +5,26 @@
     Layout = "~/Views/Maintenance/_Layout.cshtml";
 }
 
+<div>
+    <a asp-action="Edit">New Product</a>
+</div>
+
+<br />
+
 <table class="table table-sm table-bordered table-hover table-striped">
     <thead class="bg-primary">
         <tr>
             <th>Brand</th>
         </tr>
     </thead>
-    @foreach (var item in Model)
+    @foreach (var row in Model)
     {
         <tr>
-            <td>@item.BrandName</td>
+            <td>
+                <a asp-controller="Brands" asp-action="Details" asp-route-id="@row.Id">
+                    @row.BrandName
+                </a>
+            </td>
         </tr>
     }
 </table>
