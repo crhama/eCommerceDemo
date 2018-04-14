@@ -32,30 +32,51 @@
     <div class="col-md-12">
         <form method="post" enctype="multipart/form-data"
               asp-controller="PhotoImages" asp-action="UploadProductImage">
-            <div class="col-md-6">
-                <div class="col-sm-7">
-                    <input type="file" name="file" />
-                    <input type="hidden" name="pagelocation" value="@Model.PageLocation" />
-                    <input type="hidden" name="productId" value="@Model.ProductId" />
-                </div>
-                <input type="submit" value="Upload" />
+            <div class="col-sm-4">
+                <input type="file" name="file" />
+                <input type="hidden" name="pagelocation" value="@Model.PageLocation" />
+                <input type="hidden" name="productId" value="@Model.ProductId" />
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label></label>
-                    <div class="col-sm-10">
-                        <select class="form-control"
-                                asp-items="@(new SelectList(ViewBag.PageLocations,"Key","Value"))">
-                            <option>Please select a location</option>
-                        </select>
-                    </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-info btn-sm">
+                    <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload file
+                </button>
+            </div>
+            <div class="col-sm-4 bg-info">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                If a file exists for this location, it will be replaced.
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div class="form-group">
+                <label></label>
+                <div class="col-sm-4">
+                    <select class="form-control"
+                            asp-items="@(new SelectList(ViewBag.PageLocations,"Key","Value"))">
+                        <option>Please select a location</option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-circle-arrow-down" aria-hidden="true"></span> Downsize an existing file
+                    </button>
+                </div>
+                <div class="col-sm-4 bg-info">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    Only picture with higher dimensions can be downsized.
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-<br />
 <hr />
 
 @if (Model != null)
