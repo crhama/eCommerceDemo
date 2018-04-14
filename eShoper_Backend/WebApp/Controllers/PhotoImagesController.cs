@@ -39,8 +39,6 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Details(string id, int productId, string pagelocation)
         {
-            ViewBag.PageLocations = UtilityService
-                .GetKeyValueFromEnum<PageLocation>();
             ViewBag.MaintenanceHeader =
                 new KeyValue { Key = "Photo", Value = "Product's photo" };
 
@@ -58,6 +56,9 @@ namespace WebApp.Controllers
 
             var location = Enum.TryParse(typeof(PageLocation), pagelocation, out object result)
                         ? (PageLocation)result : PageLocation.Unkown_Location;
+
+            ViewBag.PageLocations = _unit.PhotoImgs
+                .GetPossibleLocationForImageDownsizing(productId, location);
 
             var photo = (imageExistId)
                         ? _unit.PhotoImgs.GetImageDetailsById(fileId)

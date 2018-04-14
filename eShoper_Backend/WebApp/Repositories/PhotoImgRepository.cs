@@ -57,5 +57,31 @@ namespace WebApp.Repositories
                 .FirstOrDefault(ph => ph.ProductId == productId
                                    && ph.PageLocation == pagelocation);
         }
+
+        public IEnumerable<KeyValue> GetPossibleLocationForImageDownsizing(
+            int productId, PageLocation location)
+        {
+            var loc = UtilityService.GetPageLocationWeighting()
+                        .FirstOrDefault(l => l.PageLocation == location);
+            var listofPageLocs = UtilityService.GetPageLocationWeighting()
+                        .Where(l => l.SizeOrder < loc.SizeOrder)
+                        .Select(l => l.PageLocation)
+                        .ToList();
+
+            var locs = GetAll().Where(ph => ph.ProductId == productId &&
+                                 listofPageLocs.Contains(ph.PageLocation))
+                               .Select(ph => ph.PageLocation)
+                               .ToList();
+
+            var listOfLocs = new List<KeyValue>();
+            foreach (var item in locs)
+            {
+                listOfLocs.Add(new KeyValue {
+                    Key = ((int)item).ToString(),
+                    Value = item.ToString()
+                });
+            }
+            return listOfLocs;
+        }
     }
 }

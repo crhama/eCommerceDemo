@@ -90,5 +90,29 @@ namespace WebApp.Services
         {
             return ".jpg";
         }
+
+        public static IEnumerable<ImageWeightInfo> GetPageLocationWeighting()
+        {
+            var listOfImageInfos = new List<ImageWeightInfo>
+            {
+                new ImageWeightInfo
+                {
+                    Id = 1, PageLocation = PageLocation.Home_Slider,
+                    Width = 484, Height = 441, Resolution = 96, SizeOrder = 1
+                },
+                new ImageWeightInfo
+                {
+                    Id = 3, PageLocation = PageLocation.Home_Feature_Items,
+                    Width = 268, Height = 249, Resolution = 96, SizeOrder = 2
+                },
+                new ImageWeightInfo
+                {
+                    Id = 5, PageLocation = PageLocation.Home_Tab_Categories,
+                    Width = 208, Height = 183, Resolution = 96, SizeOrder = 2
+                }
+            };
+
+            return listOfImageInfos;
+        }
     }
 }
