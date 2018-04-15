@@ -16,7 +16,7 @@ namespace WebApp.Repositories
         public ProductRepository(EShoperDbContext context) 
             : base(context){}
 
-        public IEnumerable<ProductDto> ProductItems(PageLocation location)
+        public IEnumerable<ProductDto> GetProductsByPageLocation(PageLocation location)
         {
             var ProductList = from p in Context.Products
                               join img in (
@@ -38,10 +38,38 @@ namespace WebApp.Repositories
                                   ProductDescription = p.ProductDescription,
                                   ProductPrice = p.ProductPrice,
                                   PromotionType = p.PromotionType,
-                                  ImageId = pj.Id                                  
+                                  ImageId = pj.Id
                               };
 
             var ProductDtoList = Mapper.Map<IEnumerable<ProductDto>>(ProductList);
+            var noImageString = "no-image-available";
+
+            switch (location)
+            {
+                case PageLocation.Unkown_Location:
+                    break;
+                case PageLocation.Home_Slider:
+                    noImageString = "no-image-available-sd";
+                    break;
+                case PageLocation.Home_Category:
+                    break;
+                case PageLocation.Home_Feature_Items:
+                    noImageString = "no-image-available-fi";
+                    break;
+                case PageLocation.Home_Brands:
+                    break;
+                case PageLocation.Home_Tab_Categories:
+                    break;
+                case PageLocation.Home_Recommended_Items:
+                    break;
+                default:
+                    break;
+            }
+
+            foreach (var dto in ProductDtoList)
+            {
+                dto.ImageUrl = dto.ImageUrl.Replace("__0__", noImageString);
+            }
 
             return ProductDtoList;
         }

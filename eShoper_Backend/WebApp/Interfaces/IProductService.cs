@@ -5,6 +5,7 @@ namespace WebApp.Interfaces
 {
     public interface IProductService
     {
-        IEnumerable<ProductDto> GetFeatureItems();
+        IEnumerable<ProductDto> GetProductDtosForHomeSlider();
+        IEnumerable<ProductDto> GetProductDtosForFeatureItems();
     }
 }

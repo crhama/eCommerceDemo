@@ -38,6 +38,7 @@ namespace WebApp
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IEShoperUnit, EShoperUnit>();
+            services.AddScoped<IProductService, ProductService> ();
 
             services.Configure<IdentityOptions>(options =>
             {

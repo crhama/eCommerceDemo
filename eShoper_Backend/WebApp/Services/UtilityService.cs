@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace WebApp.Services
     {
         public static string SetImageUrl(this Guid? imageId)
         {
-            return $"https://localhost:44322/images/products/{imageId.ToString()}.jpg";
+            return (imageId.HasValue) 
+                ? $"https://localhost:44322/images/src/{imageId.ToString()}.jpg"
+                : $"https://localhost:44322/images/src/__0__.jpg";
         }
 
         public static string SetImageUrl(this Guid imageId)
