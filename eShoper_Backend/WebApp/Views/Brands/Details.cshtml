@@ -1,0 +1,27 @@
+﻿@using WebApp.Models.CommonViewModels
+@model WebApp.Models.ProductViewModels.BrandDto
+@{
+    ViewData["Title"] = "DEtails";
+    Layout = "~/Views/Maintenance/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>@Model.BrandName</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <img src="cinqueterre.jpg" class="img-thumbnail" alt="Cinque Terre">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Model.ProductCount related product(s)
+    </div>
+</div>
+
+    @section MaintenanceSection{
+        @await Html.PartialAsync("_MaintenanceHeaderPartial", (KeyValue)ViewBag.MaintenanceHeader)
+    }
