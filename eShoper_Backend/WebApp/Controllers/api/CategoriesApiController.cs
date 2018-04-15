@@ -7,20 +7,20 @@ namespace WebApp.Controllers.api
     [Route("api/Categories")]
     public class CategoriesApiController : Controller
     {
-        private IEShoperUnit _unit;
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesApiController(IEShoperUnit unit)
+        public CategoriesApiController(ICategoryService categoryService)
         {
-            _unit = unit;
+            _categoryService = categoryService;
         }
 
-        [Route("CategoriesForExistingProducts")]
-        public IActionResult GetCategoriesForExistingProducts()
+        [Route("CategoriesForTabDisplay")]
+        public IActionResult GetCategoriesForTabDisplay()
         {
-            var categoryDtoList = _unit.Categories
-                .GetCategoriesForExistingProducts();
+            var categoriesForTabDisplay = _categoryService
+                    .GetCategoryKeyValueForTabDisplay();
 
-            return Ok(categoryDtoList);
+            return Ok(categoriesForTabDisplay);
         }
     }
 }

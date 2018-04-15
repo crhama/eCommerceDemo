@@ -39,6 +39,7 @@ namespace WebApp
 
             services.AddScoped<IEShoperUnit, EShoperUnit>();
             services.AddScoped<IProductService, ProductService> ();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             services.Configure<IdentityOptions>(options =>
             {

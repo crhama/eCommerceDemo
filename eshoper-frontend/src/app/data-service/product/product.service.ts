@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { CategoryDto } from '../../entities/categoryDto';
 import { BrandDto } from '../../entities/brandDto';
 import { HomeProductSliderVo } from '../../entities/home-product-sliderVo';
+import { KeyValue } from '../../entities/key-value';
 
 @Injectable()
 export class ProductService {  
@@ -37,6 +38,12 @@ export class ProductService {
   getBrandItemSummary(reqUrl: string): Observable<BrandDto[]>{
     return this.http
       .get<BrandDto[]>(this.brandBaseUrl + reqUrl)
+  }
+
+  getCategoriesForTabDisplay(): Observable<KeyValue[]>{
+    let reqUrl = "CategoriesForTabDisplay";
+    return this.http
+      .get<KeyValue[]>(this.categoryBaseUrl + reqUrl)
   }
 
   getProductByCategory(reqUrl: string): Observable<ProductDto[]>{
