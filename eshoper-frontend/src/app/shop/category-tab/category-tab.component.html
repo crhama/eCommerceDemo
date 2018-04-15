@@ -2,13 +2,13 @@
     <div class="col-sm-12">
       <ul class="nav nav-tabs">
         <li *ngFor="let tb of tabHeaderList; let i = index" [ngClass]="{'active': i === 0 }">
-          <a href="#" (click)="getTabProducts(tb)" data-toggle="tab">
+          <a href="#" (click)="getTabProductsByCategory(tb)" data-toggle="tab">
             {{ tb }}           
           </a>
         </li>
       </ul>
     </div>
-    <div *ngIf="tabProductList" class="tab-content">
+    <div class="tab-content">
       <div class="tab-pane fade active in" id="tshirt" >
         <div *ngFor = "let p of tabProductList" class="col-sm-3">
           <div class="product-image-wrapper">

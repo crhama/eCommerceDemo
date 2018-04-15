@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Entities;
 using WebApp.Models.CommonViewModels;
+using WebApp.Models.ProductViewModels;
 
 namespace WebApp.Services
 {
@@ -30,6 +31,16 @@ namespace WebApp.Services
             return (Guid.TryParse(strImageId, out Guid imageId)) ? 
                 $"https://localhost:44322/images/{folder}/{imageId.ToString()}.jpg"
                 : $"https://localhost:44322/images/{folder}/no-image-available.jpg";
+        }
+
+        public static IEnumerable<ProductDto> SetImageUrl(this IEnumerable<ProductDto> productDtos)
+        {
+            foreach (var dto in productDtos)
+            {
+                dto.ImageUrl = SetImageUrl(dto.ImageUrl);
+            }
+
+            return productDtos;
         }
 
         public static bool IsConvertibleTo<T>(this string value)

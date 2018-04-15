@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApp.Controllers.api
+namespace WebApp.Controllers
 {
     public class UploadFilesController : Controller
     {

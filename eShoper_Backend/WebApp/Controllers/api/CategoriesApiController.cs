@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApp.Interfaces;
 
-namespace WebApp.Controllers.api
+namespace WebApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/Categories")]
@@ -21,6 +21,14 @@ namespace WebApp.Controllers.api
                     .GetCategoryKeyValueForTabDisplay();
 
             return Ok(categoriesForTabDisplay);
+        }
+
+        [Route("TabProductsByCategory/{category}")]
+        public IActionResult GetTabProductsByCategory(string category)
+        {
+            var tabProductsByCategory = _categoryService
+                    .GetTabProductsByCategory(category);
+            return Ok(tabProductsByCategory);
         }
     }
 }

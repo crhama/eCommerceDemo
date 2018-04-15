@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using WebApp.Interfaces;
 using WebApp.Models.CommonViewModels;
 
-namespace WebApp.Controllers.api
+namespace WebApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/Brands")]

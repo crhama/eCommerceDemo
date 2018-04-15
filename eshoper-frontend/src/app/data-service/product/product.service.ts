@@ -47,6 +47,12 @@ export class ProductService {
       .get<CategoryTabWithProductsViewModel>(this.categoryBaseUrl + reqUrl)
   }
 
+  getTabProductsByCategory(cat: string): Observable<ProductDto[]>{
+    let reqUrl = "TabProductsByCategory/" + cat;
+    return this.http
+      .get<ProductDto[]>(this.categoryBaseUrl + reqUrl);
+  }
+
   getProductByCategory(reqUrl: string): Observable<ProductDto[]>{
     return this.http
       .get<ProductDto[]>(this.categoryBaseUrl + reqUrl);
