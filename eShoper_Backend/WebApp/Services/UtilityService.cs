@@ -25,11 +25,11 @@ namespace WebApp.Services
                 : $"https://localhost:44322/images/maintenance/{imageId.ToString()}.jpg";
         }
 
-        public static string SetImageUrl(this string strImageId)
+        public static string SetImageUrl(this string strImageId, string folder = "src")
         {
             return (Guid.TryParse(strImageId, out Guid imageId)) ? 
-                $"https://localhost:44322/images/maintenance/{imageId.ToString()}.jpg"
-                : $"https://localhost:44322/images/maintenance/no-image-available.jpg";
+                $"https://localhost:44322/images/{folder}/{imageId.ToString()}.jpg"
+                : $"https://localhost:44322/images/{folder}/no-image-available.jpg";
         }
 
         public static bool IsConvertibleTo<T>(this string value)

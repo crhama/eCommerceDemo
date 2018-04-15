@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using WebApp.Models.CommonViewModels;
+﻿using WebApp.Models.ProductViewModels;
 
 namespace WebApp.Interfaces
 {
     public interface ICategoryService
     {
-        IEnumerable<KeyValue> GetCategoryKeyValueForTabDisplay();
+        CategoryTabWithProductsViewModel GetCategoryKeyValueForTabDisplay();
     }
 }

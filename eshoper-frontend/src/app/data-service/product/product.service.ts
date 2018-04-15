@@ -7,6 +7,7 @@ import { CategoryDto } from '../../entities/categoryDto';
 import { BrandDto } from '../../entities/brandDto';
 import { HomeProductSliderVo } from '../../entities/home-product-sliderVo';
 import { KeyValue } from '../../entities/key-value';
+import { CategoryTabWithProductsViewModel } from '../../entities/Category-tab-Products-vm';
 
 @Injectable()
 export class ProductService {  
@@ -40,10 +41,10 @@ export class ProductService {
       .get<BrandDto[]>(this.brandBaseUrl + reqUrl)
   }
 
-  getCategoriesForTabDisplay(): Observable<KeyValue[]>{
+  getCategoriesForTabDisplay(): Observable<CategoryTabWithProductsViewModel>{
     let reqUrl = "CategoriesForTabDisplay";
     return this.http
-      .get<KeyValue[]>(this.categoryBaseUrl + reqUrl)
+      .get<CategoryTabWithProductsViewModel>(this.categoryBaseUrl + reqUrl)
   }
 
   getProductByCategory(reqUrl: string): Observable<ProductDto[]>{

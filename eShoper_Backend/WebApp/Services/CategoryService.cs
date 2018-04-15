@@ -1,8 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebApp.Interfaces;
 using WebApp.Models.CommonViewModels;
+using WebApp.Models.ProductViewModels;
 
 namespace WebApp.Services
 {
@@ -14,7 +16,7 @@ namespace WebApp.Services
             _unit = unit;
         }
 
-        public IEnumerable<KeyValue> GetCategoryKeyValueForTabDisplay()
+        public CategoryTabWithProductsViewModel GetCategoryKeyValueForTabDisplay()
         {
             var CategoryNames = _unit.Categories.GetAll()
                 .Where(c => c.Level == 2)
@@ -23,9 +25,38 @@ namespace WebApp.Services
             var rnd = new Random();
             var namesRanked = CategoryNames
                     .OrderBy(x => rnd.Next()).Take(4)
-                    .Select(kv => new KeyValue { Key = "1", Value = kv })
                     .ToList();
-            return namesRanked;
+
+            string firstCategoryName = namesRanked[0];
+
+            var productDtos = (from p in _unit.Products.GetAll().Where(p =>
+                                p.Category.CategoryName == firstCategoryName)
+                           join img in _unit.PhotoImgs.GetAll()
+                           on p.Id equals img.ProductId into pimgjoin
+                           from pimg in pimgjoin.DefaultIfEmpty()
+                           select new ProductDto
+                           {
+                               Id = p.Id,
+                               ProductDescription = p.ProductDescription,
+                               PromotionType = p.PromotionType,
+                               ProductPrice = p.ProductPrice,
+                               ImageUrl = (pimg == null) ? string.Empty : pimg.Id.ToString()
+                            })
+                            .ToList();
+
+            foreach (var dto in productDtos)
+            {
+                dto.ImageUrl = UtilityService.SetImageUrl(dto.ImageUrl);
+            }
+
+            var vm = new CategoryTabWithProductsViewModel
+            {
+                SelectedCategoryList = namesRanked,
+                FirstListOfProducts = productDtos
+            };
+
+
+            return vm;
         }
     }
 }

@@ -1,92 +1,28 @@
 <div class="category-tab">
     <div class="col-sm-12">
       <ul class="nav nav-tabs">
-        <li *ngFor="let tb of tabList; let i = index" [ngClass]="{'active': i === 0 }">
-          <a href="#" (click)="getTabProducts(tb.key)" data-toggle="tab">
-            {{ tb.value }}           
+        <li *ngFor="let tb of tabHeaderList; let i = index" [ngClass]="{'active': i === 0 }">
+          <a href="#" (click)="getTabProducts(tb)" data-toggle="tab">
+            {{ tb }}           
           </a>
         </li>
       </ul>
     </div>
-    <div class="tab-content">
+    <div *ngIf="tabProductList" class="tab-content">
       <div class="tab-pane fade active in" id="tshirt" >
-        <div *ngFor = "let p of tshirtTabList" class="col-sm-3">
+        <div *ngFor = "let p of tabProductList" class="col-sm-3">
           <div class="product-image-wrapper">
             <div class="single-products">
               <div class="productinfo text-center">
                 <img [src] ="p.imageUrl" alt="" />
                 <h2>{{ p.price | currency }}</h2>
-                <p>Easy Polo Black Edition</p>
+                <p style="font-size: small">{{ p.productDescription }}</p>
                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
               </div>
               
             </div>
           </div>
         </div>
-      </div>
-      
-      <div class="tab-pane fade" id="blazers" >
-        <div *ngFor = "let p of blazersTabList" class="col-sm-3">
-          <div class="product-image-wrapper">
-            <div class="single-products">
-              <div class="productinfo text-center">
-                  <img [src] ="p.imageUrl" alt="" />
-                  <h2>{{ p.price | currency }}</h2>
-                <p>Easy Polo Black Edition</p>
-                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="tab-pane fade" id="sunglass" >
-          <div *ngFor = "let p of sunglassTabList" class="col-sm-3">
-              <div class="product-image-wrapper">
-                <div class="single-products">
-                  <div class="productinfo text-center">
-                      <img [src] ="p.imageUrl" alt="" />
-                      <h2>{{ p.price | currency }}</h2>
-                    <p>Easy Polo Black Edition</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-      </div>
-      
-      <div class="tab-pane fade" id="kids" >
-          <div *ngFor = "let p of kidsTabList" class="col-sm-3">
-              <div class="product-image-wrapper">
-                <div class="single-products">
-                  <div class="productinfo text-center">
-                      <img [src] ="p.imageUrl" alt="" />
-                      <h2>{{ p.price | currency }}</h2>
-                    <p>Easy Polo Black Edition</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
-      </div>
-      
-      <div class="tab-pane fade" id="poloshirt" >
-          <div *ngFor = "let p of kidsTabList" class="col-sm-3">
-              <div class="product-image-wrapper">
-                <div class="single-products">
-                  <div class="productinfo text-center">
-                      <img [src] ="p.imageUrl" alt="" />
-                      <h2>{{ p.price | currency }}</h2>
-                    <p>Easy Polo Black Edition</p>
-                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
       </div>
     </div>
   </div>

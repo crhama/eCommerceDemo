@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductDto } from '../../entities/productDto';
 import { ProductService } from '../../data-service/product/product.service';
 import { KeyValue } from '../../entities/key-value';
+import { CategoryTabWithProductsViewModel } from '../../entities/Category-tab-Products-vm';
 
 @Component({
   selector: 'app-category-tab',
@@ -9,7 +10,10 @@ import { KeyValue } from '../../entities/key-value';
   styleUrls: ['./category-tab.component.css']
 })
 export class CategoryTabComponent implements OnInit {
-  tabList: KeyValue[];
+  tabHeaderList: string[];
+  tabProductList: ProductDto[];  
+
+
   tshirtTabList: ProductDto[];
   blazersTabList: ProductDto[];
   sunglassTabList: ProductDto[];
@@ -31,7 +35,10 @@ export class CategoryTabComponent implements OnInit {
     this.productService
         .getCategoriesForTabDisplay()
         .subscribe(
-          (data: KeyValue[]) => this.tabList = data,
+          (data: CategoryTabWithProductsViewModel) => {
+            this.tabHeaderList = data.selectedCategoryList;
+            this.tabProductList = data.firstListOfProducts;
+          },
           (err: any) => console.log(err)
         );
   }
