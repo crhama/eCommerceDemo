@@ -20,7 +20,7 @@ export class RecommendedItemsComponent implements OnInit {
   }
 
   getProductVo(): void{    
-      this.productService.getRecommendedItems("RecommendedItems")
+      this.productService.getRecommendedItems()
       .subscribe(
         (data: ProductDto[][] ) => this.recommendedItemList = data,
         (err: any) => console.log(err)

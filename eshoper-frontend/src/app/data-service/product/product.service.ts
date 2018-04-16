@@ -26,7 +26,8 @@ export class ProductService {
       .get<ProductDto[]>(this.productBaseUrl + reqUrl);
   }
 
-  getRecommendedItems(reqUrl: string): Observable<ProductDto[][]> {
+  getRecommendedItems(): Observable<ProductDto[][]> {
+    let reqUrl = "RecommendedItems";
     return this.http
       .get<ProductDto[][]>(this.productBaseUrl + reqUrl);
   }

@@ -7,5 +7,6 @@ namespace WebApp.Interfaces
     {
         IEnumerable<ProductDto> GetProductDtosForHomeSlider();
         IEnumerable<ProductDto> GetProductDtosForFeatureItems();
+        IEnumerable<ProductDto> GetProductDtosForRecommendedItems();
     }
 }

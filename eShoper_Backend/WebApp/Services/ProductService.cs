@@ -25,6 +25,11 @@ namespace WebApp.Services
             return GetProductDtosByLocation(PageLocation.Home_Slider);
         }
 
+        public IEnumerable<ProductDto> GetProductDtosForRecommendedItems()
+        {
+            return GetProductDtosByLocation(PageLocation.Home_Recommended_Items);
+        }
+
         private IEnumerable<ProductDto> GetProductDtosByLocation(PageLocation pageLocation)
         {
             var sliderItems = _unit.Products.GetProductsByPageLocation(pageLocation);

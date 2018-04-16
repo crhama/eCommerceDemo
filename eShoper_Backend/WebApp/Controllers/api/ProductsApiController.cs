@@ -30,7 +30,16 @@ namespace WebApp.Controllers
         [Route("FeatureItems")]
         public IActionResult GetFeatureItems()
         {
-            var productDtos = _productservice.GetProductDtosForFeatureItems();
+            var productDtos = _productservice
+                .GetProductDtosForFeatureItems();
+            return Ok(productDtos);
+        }
+
+        [Route("RecommendedItems")]
+        public IActionResult GetRecommendedItems()
+        {
+            var productDtos = _productservice
+                .GetProductDtosForRecommendedItems();
             return Ok(productDtos);
         }
     }
