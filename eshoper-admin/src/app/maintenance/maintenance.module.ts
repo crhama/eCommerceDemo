@@ -6,6 +6,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { BrandListComponent } from './brand-list/brand-list.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { ImageListComponent } from './image-list/image-list.component';
+import { MaintenanceService } from './maintenance.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,9 @@ import { ImageListComponent } from './image-list/image-list.component';
     BrandListComponent, 
     CategoryListComponent, 
     ImageListComponent
+  ], 
+  providers: [
+    MaintenanceService
   ]
 })
 export class MaintenanceModule { }
