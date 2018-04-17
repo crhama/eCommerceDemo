@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MaintenanceModule } from './maintenance/maintenance.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -19,6 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule, 
     HttpClientModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: DashboardComponent }   
     ]),

@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using WebApp.Entities;
 using WebApp.Interfaces;
 using WebApp.Models.CommonViewModels;
 using WebApp.Models.MaintenanceViewModels;
-using WebApp.Models.ProductViewModels;
 
 namespace WebApp.Controllers
 {

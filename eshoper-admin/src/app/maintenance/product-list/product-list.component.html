@@ -15,14 +15,18 @@
                   </select> entries</label>
               </div>
             </div>
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-3">
               <div id="sampleTable_filter" class="dataTables_filter">
-                <a class="btn btn-secondary" href="#">Columns..</a>
-                <label>Search:
-                  <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
-                </label>
+                <app-columns></app-columns>
               </div>
             </div>
+            <div class="col-sm-12 col-md-3">
+                <div id="sampleTable_filter" class="dataTables_filter">
+                  <label>Search:
+                    <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable">
+                  </label>
+                </div>
+              </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
@@ -34,16 +38,6 @@
                       aria-label="Name: activate to sort column descending" style="width: 50px;">
                       {{ th.value }}
                     </th>
-                    <!-- <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending"
-                      style="width: 295.6px;">Description</th>
-                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending"
-                      style="width: 50px;">Price</th>
-                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending"
-                      style="width: 66.8px;">Promotion</th>
-                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending"
-                      style="width: 129.2px;">Brand</th>
-                    <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending"
-                      style="width: 104.4px;">Category</th> -->
                   </tr>
                 </thead>
                 <tbody>

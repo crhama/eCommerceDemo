@@ -7,6 +7,7 @@ import { BrandListComponent } from './brand-list/brand-list.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { ImageListComponent } from './image-list/image-list.component';
 import { MaintenanceService } from './maintenance.service';
+import { ColumnsComponent } from './columns/columns.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { MaintenanceService } from './maintenance.service';
     ProductListComponent, 
     BrandListComponent, 
     CategoryListComponent, 
-    ImageListComponent
+    ImageListComponent, ColumnsComponent
   ], 
   providers: [
     MaintenanceService
